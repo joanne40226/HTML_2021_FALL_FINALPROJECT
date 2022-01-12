@@ -159,7 +159,7 @@ X = df.drop(['Churn_Category'], axis=1)
 y = df['Churn_Category']
 #dx = data_init_load(path)[0]
 #dy = data_init_load(path)[1]
-xtrain, xtest,  ytrain, ytest = train_test_split(X, y, test_size=0.3)
+xtrain, xtest,  ytrain, ytest = train_test_split(X, y, test_size=0.9)
 #test_prediction = PCA_SV(X_train,y_train,X_test,y_test)
 
 steps = [('scaler', StandardScaler()),('pca',PCA()),('clf',SVC(kernel='rbf'))]
@@ -182,16 +182,17 @@ print("Accuracy : ", grid.best_score_)
 path_test = r'C:\Users\user001\OneDrive\桌面\NTU\senior\Machine_Learning\final_project\HTML_final_project-main\Test_data.csv'
 dff_t= pd.read_csv(path_test)
 X_test = data_process(dff_t)
+test_id = np.array(dff_t[0:])
+tid = ['0']*1408
+for i in range(1408):
+    tid[i] = test_id[i][0]
 Xtest = X_test.drop(['Churn_Category'], axis=1)
-test_id = np.array(Xtest[1:])
 #test_prediction = PCA_SV(X_train,y_train,X_test,y_test)
 y_pred_test_tt = grid.predict(Xtest)
 print("Accuracy : ", grid.best_score_)
 
-make_pred(y_pred_test_tt,test_id)
+make_pred(y_pred_test_tt,tid)
 
 
-
-#test_prediction = PCA_SV(X_train,y_train,X_test,y_test)
 
 
